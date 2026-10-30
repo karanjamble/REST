@@ -33,22 +33,26 @@ let posts=[{
     content:"new car added"
 }]
 
+//new post
 app.get("/posts/new",(req,res)=>{
     res.render("new.ejs")
 })
-
-
 app.post("/posts",(req,res)=>{
     res.redirect("/posts")
     let id=uuidv4()
     let{username,content}=req.body;
     posts.push({id,username,content})
 })
+
+
+//to get main page
 app.get("/posts",(req,res)=>{
     res.render("index.ejs",{posts});
 
 })
 
+
+//for show in detail
 app.get("/posts/:id",(req,res)=>{
     let {id}=req.params;
     let post=posts.find((p)=>id===p.id);
@@ -57,6 +61,7 @@ app.get("/posts/:id",(req,res)=>{
 })
 
 
+//for edit post
 app.patch("/posts/:id",(req,res)=>{
     let {id}=req.params;
     let newContent=req.body.content;
